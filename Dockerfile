@@ -1,4 +1,4 @@
-FROM jecklgamis/ubuntu-16.04:latest
+FROM jecklgamis/oracle-java-runtime:latest
 MAINTAINER Jerrico Gamis <jecklgamis@gmail.com>
 
 RUN groupadd -r apprunner && useradd -r -gapprunner apprunner
