@@ -7,7 +7,7 @@ About
 -----
 This is an example Dropwizard app using Java.
 
-* Dropwizard 1.0.4
+* Dropwizard 1.0.5
 * Java 8
 * Maven 3
 * Guice dependency injection
