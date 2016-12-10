@@ -10,7 +10,7 @@
     <name>dropwizard-java-example</name>
 
     <properties>
-        <dropwizard.version>1.0.4</dropwizard.version>
+        <dropwizard.version>1.0.5</dropwizard.version>
         <jackson.version>2.7.8</jackson.version>
     </properties>
 
@@ -50,7 +50,7 @@
         <dependency>
             <groupId>com.google.inject.extensions</groupId>
             <artifactId>guice-multibindings</artifactId>
-            <version>4.0</version>
+            <version>4.1.0</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
