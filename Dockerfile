@@ -16,5 +16,10 @@ COPY app-supervisor.conf /etc/supervisor/conf.d
 RUN chown -R app:app /usr/local/app
 RUN chmod +x /usr/local/app/bin/run-app.sh
 
-CMD ["/usr/bin/supervisord"]
+CMD ["/usr/local/app/bin/run-app.sh"]
+
+# or use the supervisor to start the app (see app-supervisor.conf)
+#CMD ["/usr/bin/supervisord"]
+
+
 
