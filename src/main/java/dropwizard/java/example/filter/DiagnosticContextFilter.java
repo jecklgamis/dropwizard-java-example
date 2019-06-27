@@ -1,21 +1,21 @@
-package com.jecklgamis.dropwizard.example.filter;
+package dropwizard.java.example.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 
+import java.io.IOException;
+import java.util.UUID;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ContainerResponseContext;
 import javax.ws.rs.container.ContainerResponseFilter;
-import java.io.IOException;
-import java.util.UUID;
 
 import static java.lang.String.format;
 import static java.lang.Thread.currentThread;
 
 public class DiagnosticContextFilter implements ContainerRequestFilter, ContainerResponseFilter {
-    private final Logger LOG = LoggerFactory.getLogger(DiagnosticContextFilter.class);
+    private static final Logger LOG = LoggerFactory.getLogger(DiagnosticContextFilter.class);
     private final String REQUEST_ID_KEY = "id";
 
     @Override

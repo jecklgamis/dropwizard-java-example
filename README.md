@@ -2,50 +2,29 @@
 
 [![Build Status](https://travis-ci.org/jecklgamis/dropwizard-java-example.svg?branch=master)](https://travis-ci.org/jecklgamis/dropwizard-java-example)
 
-This is an example Dropwizard app using Java.
+This is an example Dropwizard app using Java. 
 
-## Building The App
-Ensure you Java 8 or later, and Maven 3 installed.
+## Running The App 
+Ensure you have Java 8 or later.
 ```
 mvn clean package
-```
-## Running The App
-```
-java -jar target/dropwizard-java-example.jar server src/main/resources/config.yml
+java -jar target/dropwizard-java-example.jar
 ```
 
-## Running The App In Docker
-
+## Running The App Using Docker
+Ensure you have a working Docker environment.
 ```
-docker build -t dropwizard-java-example .
-docker run dropwizard-java-example
-```
-
-## GET, PUT, POST, DELETE Examples
-
-PUT Request
-```
-curl -v -X PUT -H "Content-Type:application/json" "http://localhost:8080/user" -d'{"username":"me", "email":"me@example.com"}'
+make dist image run
 ```
 
-POST Request
+## Testing The Endpoints
+Point your browser to `http://localhost:8080` or use `curl` in command line.
+
 ```
-curl -v -X POST -H "Content-Type:application/json" "http://localhost:8080/user" -d'{"username":"me", "email":"me@example.com"}'
+curl -v  http://localhost:8080/
+curl -v -k https://localhost:8443/
 ```
-
-GET Request
-```
-curl -v -X GET -H "Content-Type:application/json" "http://localhost:8080/user?username=me"
-```
-
-DELETE Request
-```
-curl -v -X DELETE -H "Content-Type:application/json" "http://localhost:8080/user?username=me"
-```
-
-
-
-
-
+Operational menu endpoint:
+* `http://localhost:8081`
 
 

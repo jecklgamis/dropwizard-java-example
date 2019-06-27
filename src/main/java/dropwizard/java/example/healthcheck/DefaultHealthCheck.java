@@ -1,4 +1,4 @@
-package com.jecklgamis.dropwizard.example.healthcheck;
+package dropwizard.java.example.healthcheck;
 
 import com.codahale.metrics.health.HealthCheck;
 
