@@ -1,12 +1,26 @@
+IMAGE_NAME:=jecklgamis/dropwizard-java-example
+IMAGE_TAG:=latest
+
 default:
 	cat ./Makefile
-dist: 
-	mvn clean package
+dist: keystore
+	./mvnw clean package
 image:
-	 docker build -t dropwizard-java-example .
+	docker build -t $(IMAGE_NAME):$(IMAGE_TAG) .
 run:
-	 docker run -p 8080:8080 -p 8081:8081 -p 8443:8443 dropwizard-java-example
+	docker run -p 8080:8080  -p 8443:8443 $(IMAGE_NAME):$(IMAGE_TAG)
 run-bash:
-	 docker run -i -t dropwizard-java-example /bin/bash
+	docker run -i -t $(IMAGE_NAME):$(IMAGE_TAG) /bin/bash
 keystore:
-	 ./generate-keystore.sh
+	@./generate-keystore.sh
+all: dist image
+push:
+	 docker push $(IMAGE_NAME):$(IMAGE_TAG)
+	 docker push $(IMAGE_NAME):latest
+tag:
+	 git tag -m "dropwizard-java-example-v$(IMAGE_TAG)" -a "v$(IMAGE_TAG)"
+	 git push --tags
+release-it: dist image push
+	cd deployment/k8s && ./create-k8s-files.py --version $(IMAGE_TAG)
+	kubectl apply -f deployment/k8s/deployment-$(IMAGE_TAG).yaml
+

@@ -1,12 +1,13 @@
 ## Dropwizard Java Example
 
-[![Build Status](https://travis-ci.org/jecklgamis/dropwizard-java-example.svg?branch=master)](https://travis-ci.org/jecklgamis/dropwizard-java-example)
+[![Build](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml/badge.svg)](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml)
 
 This is an example Dropwizard app using Java. 
 
 ## Running The App 
 Ensure you have Java 8 or later.
 ```
+./generate-keystore.sh
 mvn clean package
 java -jar target/dropwizard-java-example.jar
 ```
