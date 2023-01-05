@@ -2,6 +2,8 @@
 
 [![Build](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml/badge.svg)](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml)
 
+Docker: `docker run -p 8080:8080 jecklgamis/dropwizard-java-example:main`
+
 This is an example Dropwizard app using Java. 
 
 ## Running The App 
