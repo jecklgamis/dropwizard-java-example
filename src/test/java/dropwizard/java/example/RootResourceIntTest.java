@@ -1,31 +1,32 @@
 package dropwizard.java.example;
 
+import io.dropwizard.testing.ResourceHelpers;
+import io.dropwizard.testing.junit5.DropwizardAppExtension;
+import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.core.Response;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.client.ClientProperties;
 import org.glassfish.jersey.client.JerseyClientBuilder;
-import org.junit.ClassRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import io.dropwizard.testing.ConfigOverride;
-import io.dropwizard.testing.junit.DropwizardAppRule;
 import java.util.Map;
-import javax.ws.rs.client.Client;
-import javax.ws.rs.core.Response;
 
-import static io.dropwizard.testing.ResourceHelpers.resourceFilePath;
-import static java.lang.String.format;
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
+@ExtendWith(DropwizardExtensionsSupport.class)
 public class RootResourceIntTest {
-    @ClassRule
-    public static final DropwizardAppRule<ExampleAppConfig> RULE =
-            new DropwizardAppRule(ExampleApp.class, resourceFilePath("config.yml"),
-                    ConfigOverride.config("server.applicationConnectors[1].keyStorePath", "src/main/resources/keystore.pfx"));
+
+    private static DropwizardAppExtension<ExampleAppConfig> EXT = new DropwizardAppExtension<>(
+            ExampleApp.class,
+            ResourceHelpers.resourceFilePath("config.yml")
+    );
 
     @Test
     public void testDefaultResource() {
-        Response response = client().target(format("http://127.0.0.1:%d/", RULE.getLocalPort())).request().get(Response.class);
+        Response response = client().target(String.format("http://127.0.0.1:%d/", EXT.getLocalPort())).request().get(Response.class);
         assertEquals(200, response.getStatus());
         assertEquals("application/json", response.getHeaders().getFirst("Content-Type"));
         Map entity = response.readEntity(Map.class);

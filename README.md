@@ -2,12 +2,12 @@
 
 [![Build](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml/badge.svg)](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml)
 
-Docker: `docker run -p 8080:8080 jecklgamis/dropwizard-java-example:main`
+Docker: `docker run -p 8080:8080 -it jecklgamis/dropwizard-java-example:main`
 
 This is an example Dropwizard app using Java. 
 
 ## Running The App 
-Ensure you have Java 8 or later.
+Ensure you have Java 11 or later.
 ```
 ./generate-keystore.sh
 mvn clean package

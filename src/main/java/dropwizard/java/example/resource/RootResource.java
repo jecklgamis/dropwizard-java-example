@@ -1,14 +1,15 @@
 package dropwizard.java.example.resource;
 
 import com.google.common.collect.ImmutableMap;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.Response;
 
 import java.util.Map;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
+
 
 @Path("/")
 @Produces({APPLICATION_JSON})

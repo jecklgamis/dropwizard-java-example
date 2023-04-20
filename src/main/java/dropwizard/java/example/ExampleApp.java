@@ -3,9 +3,9 @@ package dropwizard.java.example;
 import dropwizard.java.example.filter.DiagnosticContextFilter;
 import dropwizard.java.example.healthcheck.DefaultHealthCheck;
 import dropwizard.java.example.resource.RootResource;
-import io.dropwizard.setup.Environment;
+import io.dropwizard.core.setup.Environment;
 
-public class ExampleApp extends io.dropwizard.Application<ExampleAppConfig> {
+public class ExampleApp extends io.dropwizard.core.Application<ExampleAppConfig> {
 
     public static void main(String[] args) throws Exception {
         new ExampleApp().run(args);
