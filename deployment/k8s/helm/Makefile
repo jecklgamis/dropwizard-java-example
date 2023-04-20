@@ -1,4 +1,4 @@
-APP_NAME:=dropwizard-scala-example
+APP_NAME:=dropwizard-java-example
 VERSION:=$(shell cat chart/Chart.yaml | yq .appVersion)
 HELM_CHART=$(APP_NAME)-$(VERSION).tgz
 
