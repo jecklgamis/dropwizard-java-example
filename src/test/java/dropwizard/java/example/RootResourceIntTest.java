@@ -1,5 +1,6 @@
 package dropwizard.java.example;
 
+import io.dropwizard.testing.ConfigOverride;
 import io.dropwizard.testing.ResourceHelpers;
 import io.dropwizard.testing.junit5.DropwizardAppExtension;
 import io.dropwizard.testing.junit5.DropwizardExtensionsSupport;
@@ -21,7 +22,8 @@ public class RootResourceIntTest {
 
     private static DropwizardAppExtension<ExampleAppConfig> EXT = new DropwizardAppExtension<>(
             ExampleApp.class,
-            ResourceHelpers.resourceFilePath("config.yml")
+            ResourceHelpers.resourceFilePath("config.yml"),
+            ConfigOverride.randomPorts()
     );
 
     @Test
