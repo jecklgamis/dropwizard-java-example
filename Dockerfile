@@ -14,7 +14,6 @@ RUN mkdir -m 0755 -p ${APP_HOME}/logs
 COPY target/dropwizard-java-example.jar ${APP_HOME}/bin
 COPY docker-entrypoint.sh /
 COPY src/main/resources/config.yml ${APP_HOME}/config
-COPY src/main/resources/keystore.pfx ${APP_HOME}
 
 RUN chown -R app:app ${APP_HOME}
 RUN chmod +x /docker-entrypoint.sh
