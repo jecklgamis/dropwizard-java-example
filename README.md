@@ -9,7 +9,6 @@ This is an example Dropwizard app using Java.
 ## Running The App 
 Ensure you have Java 11 or later.
 ```
-./generate-keystore.sh
 mvn clean package
 java -jar target/dropwizard-java-example.jar
 ```
