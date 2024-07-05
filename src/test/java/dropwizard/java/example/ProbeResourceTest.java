@@ -18,21 +18,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 @ExtendWith(DropwizardExtensionsSupport.class)
-public class RootResourceIntTest {
+public class ProbeResourceTest {
 
-    private static DropwizardAppExtension<ExampleAppConfig> EXT = new DropwizardAppExtension<>(
-            ExampleApp.class,
-            ResourceHelpers.resourceFilePath("config.yml"),
-            ConfigOverride.randomPorts()
-    );
+    private static final DropwizardAppExtension<AppConfig> EXT = new DropwizardAppExtension<>(App.class,
+            ResourceHelpers.resourceFilePath("config.yaml"), ConfigOverride.randomPorts());
 
     @Test
-    public void testDefaultResource() {
-        Response response = client().target(String.format("http://127.0.0.1:%d/", EXT.getLocalPort())).request().get(Response.class);
+    public void testLivenessProbe() {
+        Response response = client().target(String.format("http://127.0.0.1:%d/probe/live",
+                EXT.getLocalPort())).request().get(Response.class);
         assertEquals(200, response.getStatus());
         assertEquals("application/json", response.getHeaders().getFirst("Content-Type"));
         Map entity = response.readEntity(Map.class);
-        assertEquals("dropwizard-java-example", entity.get("name"));
+        assertEquals("I am alive!", entity.get("message"));
+    }
+
+    @Test
+    public void testReadinessProbes() {
+        Response response = client().target(String.format("http://127.0.0.1:%d/probe/ready",
+                EXT.getLocalPort())).request().get(Response.class);
+        assertEquals(200, response.getStatus());
+        assertEquals("application/json", response.getHeaders().getFirst("Content-Type"));
+        Map entity = response.readEntity(Map.class);
+        assertEquals("I am ready!", entity.get("message"));
     }
 
     private Client client() {

@@ -10,19 +10,26 @@ import java.util.Map;
 import static jakarta.ws.rs.core.MediaType.APPLICATION_JSON;
 
 
-@Path("/")
+@Path("/probe")
 @Produces({APPLICATION_JSON})
-public class RootResource {
-    private final String name;
+public class ProbeResource {
 
-    public RootResource(String name) {
-        this.name = name;
+    public ProbeResource() {
     }
 
     @GET
-    public Response root() {
-        var entity = Map.of("name", name, "message", "It works on my machine!");
+    @Path("/live")
+    public Response live() {
+        var entity = Map.of("message", "I am alive!");
         return Response.ok().entity(entity).build();
     }
+
+    @GET
+    @Path("/ready")
+    public Response ready() {
+        var entity = Map.of("message", "I am ready!");
+        return Response.ok().entity(entity).build();
+    }
+
 
 }

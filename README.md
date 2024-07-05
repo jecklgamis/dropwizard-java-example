@@ -2,31 +2,48 @@
 
 [![Build](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml/badge.svg)](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml)
 
-Docker: `docker run -p 8080:8080 -it jecklgamis/dropwizard-java-example:main`
+This is an example Dropwizard app using Java.
 
-This is an example Dropwizard app using Java. 
+Docker: `docker run -p 8080:8080 -p 8081:8081 -it jecklgamis/dropwizard-java-example:main`
 
-## Running The App 
-Ensure you have Java 11 or later.
+## What's In The Box?
+
+* Docker image
+* Kubernetes Helm chart
+
+## Requirements
+
+* JDK 21, Docker, Helm, Make
+
+## Building
+
+```bash
+./mvnw clean package
+docker build -t dropwizard-java-example:main .
 ```
-mvn clean package
+
+## Running
+
+```
 java -jar target/dropwizard-java-example.jar
+docker run -it dropwizard-java-example:main 
 ```
 
-## Running The App Using Docker
-Ensure you have a working Docker environment.
-```
-make dist image run
-```
+## Testing
 
-## Testing The Endpoints
-Point your browser to `http://localhost:8080` or use `curl` in command line.
+Verify endpoints from your browser or use `curl` command.
 
+* `http://localhost:8080/`
+* `http://localhost:8080/probe/ready`
+* `http://localhost:8080/probe/live`
+* `http://localhost:8081/`
+
+## Deploying To Kubernetes
+
+This assumes you have permission to run kubectl/helm from your machine.
+
+```bash
+cd deployment && make install
 ```
-curl -v  http://localhost:8080/
-curl -v -k https://localhost:8443/
-```
-Operational menu endpoint:
-* `http://localhost:8081`
 
 
