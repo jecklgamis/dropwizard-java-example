@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Dropwizard 5.0.0-alpha.3 microservice example running on Java 21. Produces an executable uber JAR via Maven Shade plugin.
+Dropwizard 5.0.1 microservice example running on Java 25. Produces an executable uber JAR via Maven Shade plugin.
 
 ## Build & Test Commands
 
