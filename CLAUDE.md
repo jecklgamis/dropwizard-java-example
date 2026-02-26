@@ -2,17 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## Project Overview
-
-Dropwizard 5.0.1 microservice example running on Java 25. Produces an executable uber JAR via Maven Shade plugin.
-
-## Build & Test Commands
+## Commands
 
 ```bash
-# Build (includes running tests)
+# Build (produces fat JAR via maven-shade-plugin)
 ./mvnw clean package
 
-# Run tests only
+# Run all tests
 ./mvnw test
 
 # Run a single test class
@@ -21,31 +17,36 @@ Dropwizard 5.0.1 microservice example running on Java 25. Produces an executable
 # Run a single test method
 ./mvnw test -Dtest=RootResourceTest#testGetRoot
 
-# Run the application locally
+# Run the app locally (requires a built JAR)
 java -jar target/dropwizard-java-example.jar server src/main/resources/config.yaml
 
-# Docker build and run
-make image   # builds Docker image
-make run     # runs container (ports 8080, 8081)
-make up      # builds and runs
+# Build Docker image
+make image   # or: docker build -t dropwizard-java-example:main .
+
+# Run Docker container
+make run     # maps ports 8080 and 8081
+
+# Build JAR + Docker image + run
+make up
 ```
 
 ## Architecture
 
-The app follows standard Dropwizard structure with a single entry point `App.java` that registers all components:
+This is a [Dropwizard 5.x](https://www.dropwizard.io/) REST service using Java 25, packaged as a self-contained fat JAR.
 
-- **Resources** (JAX-RS endpoints in `resource/`): `RootResource` (GET `/`) and `ProbeResource` (GET `/probe/live`, `/probe/ready`)
-- **Filter** (`DiagnosticContextFilter`): Adds UUID-based request tracing via SLF4J MDC
-- **Health Check** (`DefaultHealthCheck`): Registered on admin port 8081
-- **Configuration** (`AppConfig`): Extends Dropwizard `Configuration`, loaded from `src/main/resources/config.yaml`
+**Entry point:** `App.java` extends `Application<AppConfig>` and wires everything together in `run()`.
 
-Package: `dropwizard.java.example` (under `src/main/java/dropwizard/java/example/`)
+**Key components:**
+- `AppConfig` — extends Dropwizard's `Configuration`; mapped from `config.yaml` (Maven resource filtering applies at build time). Currently exposes `appName`.
+- `RootResource` (`GET /`) — returns JSON with the app name and a status message.
+- `ProbeResource` (`GET /probe/live`, `GET /probe/ready`) — liveness and readiness endpoints for Kubernetes.
+- `DiagnosticContextFilter` — JAX-RS request/response filter that puts a UUID into SLF4J MDC per request for log correlation.
+- `DefaultHealthCheck` — Dropwizard health check registered at the admin connector (`http://localhost:8081/healthcheck`).
 
-## Testing
+**Ports:**
+- `8080` — application (Jersey/JAX-RS)
+- `8081` — admin (Dropwizard metrics, health checks)
 
-Tests are integration tests using `DropwizardAppExtension` which starts the full application with random ports. They use JUnit 5 and the Jersey HTTP client to make real requests against endpoints.
+**Tests** use `DropwizardAppExtension` (JUnit 5) to spin up the full app on random ports, then make real HTTP calls via a Jersey client. Test config is loaded from `src/test/resources/config.yaml` via `ResourceHelpers.resourceFilePath`.
 
-## Ports
-
-- 8080: Application endpoints
-- 8081: Admin/metrics/healthcheck (Dropwizard admin)
+**Deployment:** Kubernetes Helm chart lives in `deployment/k8s/`. Deploy with `cd deployment && make install`.

@@ -1,6 +1,6 @@
 ## Dropwizard Java Example
 
-[![Build](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml/badge.svg)](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yml)
+[![Build](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yaml/badge.svg)](https://github.com/jecklgamis/dropwizard-java-example/actions/workflows/build.yaml)
 
 This is an example Dropwizard app using Java.
 
@@ -13,7 +13,7 @@ Docker: `docker run -p 8080:8080 -p 8081:8081 -it jecklgamis/dropwizard-java-exa
 
 ## Requirements
 
-* JDK 21, Docker, Helm, Make
+* JDK 25, Docker, Helm, Make
 
 ## Building
 
