@@ -46,4 +46,12 @@ This assumes you have permission to run kubectl/helm from your machine.
 cd deployment && make install
 ```
 
+## Load Testing
 
+Load tests use [resonate](https://github.com/jecklgamis/resonate). With the app running:
+
+```bash
+brew install jecklgamis/tap/resonate
+./run-perf-tests.sh
+```
+See [perf-tests](perf-tests) for the scenarios and details.
